@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 
 from django.db.models import Q, Count, Avg, Sum
+from django.db.models.functions import Lower
 
 
 class PrestamoManager(models.Manager):
@@ -21,9 +22,11 @@ class PrestamoManager(models.Manager):
 
     def num_libros_prestados(self):
         resultado = self.values(
-            'libro'
+            'libro',
+            'lector',
         ).annotate(
-            num_prestados=Count('libro')
+            num_prestados=Count('libro'),
+            titulo=Lower('libro__titulo'),
         )
         for r in resultado:
             print('*****************+')

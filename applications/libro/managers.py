@@ -73,8 +73,9 @@ class CategoriaManager(models.Manager):
         resultado = self.annotate(
             num_libros=Count('categoria_libro')
         )
+
         for r in resultado:
             print('****')
-            print(r, r.num_libros)
+            print(f'{r} |-|  {r.num_libros}')
         return resultado
 
